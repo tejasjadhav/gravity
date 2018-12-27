@@ -12,7 +12,7 @@ function buildConfig(env, argv) {
     entry: path.join(__dirname, "/src/index.ts"),
     output: {
       filename: "gravity.js",
-      path: path.resolve(__dirname, "dist")
+      path: path.resolve(__dirname, "dist"),
     },
     module: {
       rules: [
@@ -30,6 +30,12 @@ function buildConfig(env, argv) {
             { loader: "css-loader" }
           ],
           exclude: /node_modules/
+        },
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: [
+            'file-loader'
+          ]
         }
       ]
     },
