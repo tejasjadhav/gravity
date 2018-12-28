@@ -28,9 +28,9 @@ export default class Rectangle extends BaseShape {
 
     return {
       x1: this.x - halfWidth,
-      y1: this.x - halfHeight,
+      y1: this.y - halfHeight,
       x2: this.x + halfWidth,
-      y2: this.x + halfHeight
+      y2: this.y + halfHeight
     };
   }
 
