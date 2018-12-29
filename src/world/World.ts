@@ -21,8 +21,12 @@ export default class World {
     this.objects = new Map();
   }
 
-  public addObject(name: string, obj: GObject) {
-    this.objects.set(name, obj);
+  public addObject(obj: GObject) {
+    this.objects.set(obj.name, obj);
+  }
+
+  public removeObject(name: string) {
+    this.objects.delete(name);
   }
 
   public calculateFriction(mass: number, velocity: Vector): Vector {
