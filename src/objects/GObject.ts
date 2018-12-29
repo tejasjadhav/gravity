@@ -76,6 +76,10 @@ export default class GObject {
     this.velocity.angle = velocity.angle;
   }
 
+  public onLoad(world: World) {
+    this.world = world;
+  }
+
   public onCollision(other: GObject, collisionBox: CollisionBox) {
     this.setVelocity(
       new Vector(

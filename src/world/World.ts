@@ -23,6 +23,7 @@ export default class World {
 
   public addObject(obj: GObject) {
     this.objects.set(obj.name, obj);
+    obj.onLoad(this);
   }
 
   public removeObject(name: string) {
