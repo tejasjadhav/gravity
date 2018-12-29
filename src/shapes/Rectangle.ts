@@ -1,5 +1,13 @@
 import BaseShape, { BoundingBox2D } from "./Base";
 
+export interface RectangleOptions {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  color?: string;
+}
+
 export default class Rectangle extends BaseShape {
   public x: number;
   public y: number;
@@ -7,19 +15,13 @@ export default class Rectangle extends BaseShape {
   public height: number;
   private color: string;
 
-  constructor(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    color: string = "#000000"
-  ) {
+  constructor(options: RectangleOptions) {
     super();
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-    this.color = color;
+    this.x = options.x;
+    this.y = options.y;
+    this.width = options.width;
+    this.height = options.height;
+    this.color = options.color || "#000000";
   }
 
   public getBoundingBox(): BoundingBox2D {
