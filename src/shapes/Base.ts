@@ -10,6 +10,7 @@ export default abstract class BaseShape {
   abstract y: number;
   abstract width: number;
   abstract height: number;
+  abstract angle: number;
 
   abstract getBoundingBox(): BoundingBox2D;
   abstract draw(ctx: CanvasRenderingContext2D): void;
