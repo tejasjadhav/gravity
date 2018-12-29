@@ -36,6 +36,26 @@ export default class World {
     );
   }
 
+  detectCollisions() {
+    this.objects.forEach((objA: GObject, keyA: string) => {
+      this.objects.forEach((objB: GObject, keyB: string) => {
+        if (keyA === keyB) {
+          return;
+        }
+
+        if (!objA.isSolid || !objB.isSolid) {
+          return;
+        }
+
+        const collisionBox = GObject.checkCollision(objA, objB);
+
+        if (collisionBox) {
+          objA.onCollision(objB, collisionBox);
+        }
+      });
+    });
+  }
+
   draw() {
     this.objects.forEach((obj: GObject, key: string) => {
       let velocity = obj.velocity.add(this.gravity);
@@ -43,5 +63,10 @@ export default class World {
       obj.setVelocity(velocity.add(friction));
       obj.simulate(this.ctx);
     });
+  }
+
+  simulate() {
+    this.draw();
+    this.detectCollisions();
   }
 }
