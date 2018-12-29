@@ -6,6 +6,7 @@ export interface GObjectOptions {
   shape: BaseShape;
   mass: number;
   velocity?: Vector;
+  isFixed?: boolean;
 }
 
 export default class GObject {
@@ -15,15 +16,19 @@ export default class GObject {
   readonly name: string;
   public velocity: Vector;
   public mass: number;
+  private isFixed: boolean;
 
   constructor(options: GObjectOptions) {
     this.name = options.name;
     this.shape = options.shape;
     this.velocity = options.velocity || new Vector();
     this.mass = options.mass;
+    this.isFixed = !!options.isFixed;
   }
 
   public setVelocity(velocity: Vector) {
+    if (this.isFixed) return;
+
     this.velocity.magnitude =
       velocity.magnitude > GObject.MAX_VELOCITY
         ? GObject.MAX_VELOCITY
