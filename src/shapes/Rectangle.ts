@@ -1,4 +1,5 @@
 import BaseShape, { BoundingBox2D } from "./Base";
+import { randomColor } from "../utils";
 
 export interface RectangleOptions {
   x: number;
@@ -7,6 +8,8 @@ export interface RectangleOptions {
   height: number;
   angle?: number;
   color?: string;
+  showBoundingBox?: boolean;
+  boundingBoxColor?: string;
 }
 
 export default class Rectangle extends BaseShape {
@@ -16,6 +19,8 @@ export default class Rectangle extends BaseShape {
   public height: number;
   public angle: number;
   private color: string;
+  protected showBoundingBox: boolean;
+  protected boundingBoxColor: string;
 
   constructor(options: RectangleOptions) {
     super();
@@ -25,6 +30,8 @@ export default class Rectangle extends BaseShape {
     this.height = options.height;
     this.angle = options.angle || 0;
     this.color = options.color || "#000000";
+    this.showBoundingBox = !!options.showBoundingBox;
+    this.boundingBoxColor = options.boundingBoxColor || randomColor();
   }
 
   public getBoundingBox(): BoundingBox2D {
@@ -46,6 +53,16 @@ export default class Rectangle extends BaseShape {
 
   public draw(ctx: CanvasRenderingContext2D) {
     ctx.save();
+
+    if (this.showBoundingBox) {
+      const bbox = this.getBoundingBox();
+      ctx.beginPath();
+      ctx.rect(bbox.x1, bbox.y1, bbox.x2 - bbox.x1, bbox.y2 - bbox.y1);
+      ctx.strokeStyle = this.boundingBoxColor;
+      ctx.stroke();
+      ctx.closePath();
+    }
+
     ctx.fillStyle = this.color;
     ctx.translate(this.x, this.y);
     ctx.rotate(this.angle);
