@@ -1,13 +1,18 @@
 import BaseShape, { BoundingBox2D } from "./Base";
 
+export interface SpriteOptions {
+  image: CanvasImageSource;
+  shape: BaseShape;
+}
+
 export default class Sprite extends BaseShape {
   private image: CanvasImageSource;
   private shape: BaseShape;
 
-  constructor(image: CanvasImageSource, shape: BaseShape) {
+  constructor(options: SpriteOptions) {
     super();
-    this.image = image;
-    this.shape = shape;
+    this.image = options.image;
+    this.shape = options.shape;
   }
 
   get x(): number {
